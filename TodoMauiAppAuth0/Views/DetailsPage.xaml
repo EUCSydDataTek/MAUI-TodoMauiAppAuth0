@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TodoMauiAppAuth0.Views.DetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:TodoMauiAppAuth0.Converters"
+    xmlns:sys="clr-namespace:System.Globalization;assembly=mscorlib"
+    xmlns:vm="clr-namespace:TodoMauiAppAuth0.ViewModels"
+    Title="DetailsPage"
+    x:DataType="vm:ItemDetailViewModel">
+
+    <Grid
+        Margin="20"
+        ColumnDefinitions="50, *"
+        RowDefinitions="60">
+        <BoxView
+            BackgroundColor="White"
+            CornerRadius="10"
+            HeightRequest="20"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="20"
+            Color="{Binding TodoItem.Priority, Converter={converters:PriorityToColorConverter}}" />
+        <Grid
+            Grid.Column="1"
+            ColumnDefinitions="*"
+            RowDefinitions="*,*">
+            <Label
+                Grid.Row="0"
+                FontSize="Large"
+                Text="{Binding TodoItem.Description}" />
+            <Label Grid.Row="1" Text="{Binding TodoItem.CreatedTime, Converter={converters:UtcToLocalTimeConverter}, ConverterParameter={x:Static sys:CultureInfo.CurrentCulture}}" />
+        </Grid>
+
+    </Grid>
+</ContentPage>

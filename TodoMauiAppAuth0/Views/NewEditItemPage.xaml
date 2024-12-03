@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TodoMauiAppAuth0.Views.NewEditItemPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:TodoMauiAppAuth0.Converters"
+    xmlns:helper="clr-namespace:TodoMauiAppAuth0.Helpers"
+    xmlns:model="clr-namespace:TodoMauiAppAuth0.Models"
+    xmlns:vm="clr-namespace:TodoMauiAppAuth0.ViewModels"
+    Title="New/Edit Item"
+    x:DataType="vm:NewEditItemViewModel"
+    Shell.PresentationMode="ModalAnimated">
+
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Label
+            Margin="0,20,0,0"
+            FontSize="Medium"
+            Text="Description" />
+        <Entry
+            ClearButtonVisibility="WhileEditing"
+            FontSize="Large"
+            Placeholder="Description (3-10 chars)"
+            Text="{Binding MyTodoItem.Description, Mode=TwoWay}" />
+
+        <Label
+            Margin="0,20,0,0"
+            FontSize="Medium"
+            Text="Priority" />
+        <Picker
+            Title="Select a priority"
+            BackgroundColor="LightGray"
+            FontSize="Large"
+            ItemsSource="{helper:EnumBindingSource {x:Type model:PriorityLevel}}"
+            SelectedItem="{Binding MyTodoItem.Priority}"
+            TextColor="Black" />
+
+        <HorizontalStackLayout>
+            <Label
+                Margin="0,20,0,0"
+                FontSize="Medium"
+                Text="Completed" />
+            <CheckBox IsChecked="{Binding MyTodoItem.Completed}" VerticalOptions="End" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+            Margin="0,30,0,0"
+            HorizontalOptions="Center"
+            Spacing="20">
+            <Button
+                BackgroundColor="HotPink"
+                Command="{Binding DeleteCommand}"
+                IsEnabled="{Binding MyTodoItem.Id, Converter={converters:IdToEditModeConverter}}"
+                Text="Delete"
+                TextColor="White"
+                WidthRequest="100" />
+            <Button
+                BackgroundColor="Gray"
+                Command="{Binding CancelCommand}"
+                Text="Cancel"
+                TextColor="White"
+                WidthRequest="100" />
+            <Button
+                BackgroundColor="Turquoise"
+                Command="{Binding SaveCommand}"
+                Text="Save"
+                TextColor="White"
+                WidthRequest="100" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TodoMauiAppAuth0.Views.ItemsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:TodoMauiAppAuth0.Converters"
+    xmlns:model="clr-namespace:TodoMauiAppAuth0.Models"
+    xmlns:syncfusion="http://schemas.syncfusion.com/maui/toolkit"
+    xmlns:vm="clr-namespace:TodoMauiAppAuth0.ViewModels"
+    Title="ShowItems"
+    x:DataType="vm:ItemsViewModel">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding AddItemCommand}" Text="Add" />
+    </ContentPage.ToolbarItems>
+
+    <RefreshView Command="{Binding GetTodoItemsCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <Grid>
+            <ActivityIndicator
+                HeightRequest="100"
+                IsRunning="{Binding IsSpinnerRunning}"
+                WidthRequest="100" />
+            <CollectionView
+                EmptyView="No items                              No items"
+                ItemsLayout="VerticalList"
+                ItemsSource="{Binding TodoItems}"
+                SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TodoItem">
+
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                        BackgroundColor="HotPink"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=SoftDeleteCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IconImageSource="check_circle_icon.svg"
+                                        Text="Done" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                        BackgroundColor="Turquoise"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=EditCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IconImageSource="edit_icon.svg"
+                                        Text="Edit" />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <!--  Content  -->
+                            <Border HeightRequest="70">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="50,*">
+                                    <BoxView
+                                        BackgroundColor="White"
+                                        CornerRadius="10"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20"
+                                        Color="{Binding Priority, Converter={converters:PriorityToColorConverter}}" />
+                                    <!--<CheckBox IsChecked="{Binding Completed}" Color="{Binding Priority, Converter={converters:PriorityToColorConverter}}" />-->
+                                    <Label
+                                        Grid.Column="1"
+                                        FontSize="16"
+                                        LineBreakMode="NoWrap"
+                                        Text="{Binding Description}"
+                                        VerticalTextAlignment="Center" />
+                                </Grid>
+                            </Border>
+
+                        </SwipeView>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </Grid>
+    </RefreshView>
+
+</ContentPage>

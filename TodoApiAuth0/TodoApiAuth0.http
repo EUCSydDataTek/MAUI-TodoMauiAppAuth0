@@ -1,0 +1,35 @@
+@TodoApi_HostAddress = https://68sz3gl5-7263.euw.devtunnels.ms
+
+GET {{TodoApi_HostAddress}}/todoitems
+
+###
+
+GET {{TodoApi_HostAddress}}/todoitems/2
+
+###
+
+POST {{TodoApi_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "description": "Walk dog",
+  "priority": 1,
+  "completed": false
+}
+
+###
+
+PUT {{TodoApi_HostAddress}}/todoitems/4
+Content-Type: application/json
+
+{
+  "id": 4,
+  "description": "Walk cat",
+  "priority": 2,
+  "completed": true
+}
+###
+
+DELETE {{TodoApi_HostAddress}}/todoitems/4
+
+###
