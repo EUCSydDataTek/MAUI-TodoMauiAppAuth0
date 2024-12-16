@@ -96,13 +96,13 @@ app.MapDelete("/todoitems/{id:int}", async (int id, TodoDbContext context) =>
 #endregion
 
 #region Recreate & migrate the database on each run for demo purposes
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var dbContext = services.GetRequiredService<TodoDbContext>();
-    dbContext.Database.EnsureDeleted();
-    dbContext.Database.Migrate();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var dbContext = services.GetRequiredService<TodoDbContext>();
+//    dbContext.Database.EnsureDeleted();
+//    dbContext.Database.Migrate();
+//}
 #endregion
 
 app.Run();

@@ -29,10 +29,10 @@ namespace TodoMauiAppAuth0
 
             builder.Services.AddSingleton<AuthService>();
 
-            builder.Services.AddTransient<LoginPage>();
+            //builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoginViewModel>();
 
-            builder.Services.AddSingleton<ItemsPage>();
+            //builder.Services.AddSingleton<ItemsPage>();
             builder.Services.AddSingleton<ItemsViewModel>();
             builder.Services.AddTransient<ItemDetailViewModel>();
             builder.Services.AddTransient<DetailsPage>();
