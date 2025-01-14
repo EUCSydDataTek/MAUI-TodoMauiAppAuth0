@@ -1,7 +1,9 @@
 ﻿namespace TodoMauiAppAuth0;
 public static class Config
 {
-    public static string BaseAddress { get; set; } = "https://todoapiauth0.azurewebsites.net/";
+   // public static string BaseAddress { get; set; } = "https://todoapiauth0.azurewebsites.net/";
+
+    public static string BaseAddress { get; set; } = "https://68sz3gl5-443.euw.devtunnels.ms/";
     public static string TodoitemsEndpoint { get; set; } = "todoitems";
 
     // Auth0 Config
